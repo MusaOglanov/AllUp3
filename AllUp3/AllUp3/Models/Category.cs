@@ -1,4 +1,6 @@
-﻿namespace AllUp3.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace AllUp3.Models
 {
     public class Category
     {
@@ -10,5 +12,7 @@
         public List<Category>? Children { get; set; }
         public Category? Parent { get; set; }
         public int? ParentId { get; set; }
+        [NotMapped]
+        public IFormFile Photo { get; set; }
     }
 }

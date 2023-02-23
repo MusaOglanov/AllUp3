@@ -1,0 +1,71 @@
+﻿@model Category
+
+<div class="col-12">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Category Create</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="IsMain"></label>
+                        <input asp-for="IsMain">
+                        <span class="text-danger" asp-validation-for="IsMain"></span>
+                    </div>
+                    <div class="mb-3 d-none" id="PhotoBox">
+                        <label class="form-label" asp-for="Photo"></label>
+                        <input asp-for="Photo" class="form-control">
+                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    </div>
+                    <div class="form-label" id="MainBox">
+                        <label for="exampleFormControlSelect1">Select Main Category</label>
+                        <select class="form-control" name="maiCatId">
+                            @foreach (Category cat in ViewBag.MainCatgeories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-action="index" class="btn btn-secondary text-white">Go Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        if ($('#IsMain').prop('checked')) {
+            $('#PhotoBox').removeClass("d-none")
+            $('#MainBox').addClass("d-none")
+        }
+        else {
+            $('#PhotoBox').addClass("d-none")
+            $('#MainBox').removeClass("d-none")
+
+        }
+        $(document).on("change","#IsMain",function() {
+            if ($('#IsMain').prop('checked')) 
+            {
+                $('#PhotoBox').removeClass("d-none")
+                $('#MainBox').addClass("d-none")
+            }
+            else
+            {
+                $('#PhotoBox').addClass("d-none")
+                $('#MainBox').removeClass("d-none")
+
+            }
+        });
+    </script>
+}
