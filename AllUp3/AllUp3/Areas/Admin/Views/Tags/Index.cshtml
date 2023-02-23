@@ -1,0 +1,69 @@
+﻿@model List<Tag>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-header">Tags</h5>
+                <a asp-action="Create" class="btn rounded-pill btn-primary text-white " style="margin-right:20px">Create</a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table id="myTable" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                @*<th>Description</th>
+                                *@
+
+                                <th>Status</th>
+                                <th style="text-align:right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Tag item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Name</strong>
+                                    </td>
+                                    @*<td>@item.Description</td>*@
+                                    <td>
+                                        @if (item.IsDeactive)
+                                        {
+                                            <span class="text-danger">Passiv</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-success">Active</span>
+                                        }
+                                    </td>
+                                    <td>
+
+                                        <div class="d-flex justify-content-end">
+                                            <a asp-action="Detail" asp-route-id="@item.Id" class="btn rounded-pill  btn-warning text-white" style="margin-right:5px">Detail</a>
+                                            <a asp-action="Update" asp-route-id="@item.Id" class="btn rounded-pill  btn-info text-white" style="margin-right:5px">Update</a>
+                                            @if (item.IsDeactive)
+                                            {
+                                                <a asp-action="Activity" asp-route-id="@item.Id" class="btn rounded-pill  btn-success text-white" style="margin-right:5px;width:120px">Activate</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="Activity" asp-route-id="@item.Id" class="btn rounded-pill  btn-danger text-white" style="margin-right:5px;width:120px">DeActivate</a>
+
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

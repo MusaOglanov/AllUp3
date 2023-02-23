@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "R2u4gmjVNBpDEo5/XHPgRMqbqXA5XFkSqrYqlZ8phWk=",
+  "Hash": "UU+d06F7FffVqKTCRp0yhmJkjIxNJujUouTyBZtZt68=",
   "Source": "AllUp3",
   "BasePath": "_content/AllUp3",
   "Mode": "Default",
@@ -26654,6 +26654,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\assets\\fonts\\ionicons28b5.woff"
+    },
+    {
+      "Identity": "C:\\Users\\musac\\Desktop\\AllUp3\\AllUp3\\AllUp3\\wwwroot\\assets\\images\\1f203c6b-735d-48c0-b146-992349054f3ddanger.jpg",
+      "SourceId": "AllUp3",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\musac\\Desktop\\AllUp3\\AllUp3\\AllUp3\\wwwroot\\",
+      "BasePath": "_content/AllUp3",
+      "RelativePath": "assets/images/1f203c6b-735d-48c0-b146-992349054f3ddanger.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\images\\1f203c6b-735d-48c0-b146-992349054f3ddanger.jpg"
     },
     {
       "Identity": "C:\\Users\\musac\\Desktop\\AllUp3\\AllUp3\\AllUp3\\wwwroot\\assets\\images\\author-1.png",

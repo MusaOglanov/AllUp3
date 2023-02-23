@@ -11,5 +11,7 @@ namespace AllUp3.DAL
         }
 
         public DbSet<Category > Categories { get; set; }
+        public DbSet<Tag > Tags { get; set; }
+        public DbSet<Brand > Brands { get; set; }
     }
 }
