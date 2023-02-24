@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-label">
                         <label for="exampleFormControlSelect1">Select Tags</label>
-                        <select multiple class="form-control" name="tagsId">
+                        <select multiple class="form-control" name="tagsId[]">
                             @foreach (Tag tag in ViewBag.Tags)
                             {
                                 <option value="@tag.Id">@tag.Name</option>
@@ -65,7 +65,7 @@
 
                     <div class="form-label">
                         <label for="exampleFormControlSelect1">Select Main Category</label>
-                        <select class="form-control" name="mainCatId">
+                        <select id="mainCats" class="form-control" name="mainCatId">
                             @foreach (Category cat in ViewBag.MainCategories)
                             {
                                 <option value="@cat.Id">@cat.Name</option>
@@ -75,7 +75,7 @@
 
                     <div class="form-label">
                         <label for="exampleFormControlSelect1">Select Main Category</label>
-                        <select class="form-control" name="childCatId">
+                        <select id="childCatId" class="form-control" name="childCatId">
                             @foreach (Category cat in ViewBag.ChildCategories)
                             {
                                 <option value="@cat.Id">@cat.Name</option>
@@ -93,10 +93,29 @@
 </div>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#ProductDetail_Description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
     <script>
 
-        $(document).on("change", "#Test", function () {
-
+        $(document).on("change", "#mainCats", function () {
+            $.ajax({
+                url: "/Admin/Products/LoadChild/",
+                type: "post",
+                data: {
+                    "mainId": $("#mainCats").val()
+                },
+                success: function (res) {
+                    $("#childCatId").empty();
+                    $("#childCatId").append(res);
+                }
+            });
         });
     </script>
 }
