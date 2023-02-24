@@ -14,5 +14,7 @@ namespace AllUp3.Models
         public int? ParentId { get; set; }
         [NotMapped]
         public IFormFile Photo { get; set; }
+        public List<ProductCategory> ProductCategories { get; set; }
+
     }
 }

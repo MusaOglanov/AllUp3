@@ -6,5 +6,7 @@
         public string Name { get; set; }
         public bool IsDeactive { get; set; }
 
+        public List<Product> Products { get; set; }
+
     }
 }

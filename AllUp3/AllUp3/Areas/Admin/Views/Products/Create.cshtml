@@ -1,0 +1,102 @@
+﻿@model Product
+
+<div class="col-12">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Product Create</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <div class="mb-3 ">
+                        <label class="form-label" asp-for="Photos"></label>
+                        <input asp-for="Photos" class="form-control">
+                        <span class="text-danger" asp-validation-for="Photos"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control">
+                        <span class="text-danger" asp-validation-for="Price"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.Tax"></label>
+                        <input asp-for="ProductDetail.Tax" class="form-control">
+                        <span class="text-danger" asp-validation-for="ProductDetail.Tax"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.ProductCode"></label>
+                        <input asp-for="ProductDetail.ProductCode" class="form-control">
+                        <span class="text-danger" asp-validation-for="ProductDetail.ProductCode"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.HasStock"></label>
+                        <input asp-for="ProductDetail.HasStock">
+                        <span class="text-danger" asp-validation-for="ProductDetail.HasStock"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.Description"></label>
+                        <textarea asp-for="ProductDetail.Description" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="ProductDetail.Description"></span>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Brand</label>
+                        <select class="form-control" name="brandId">
+                            @foreach (Brand brand in ViewBag.Brands)
+                            {
+                                <option value="@brand.Id">@brand.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Tags</label>
+                        <select multiple class="form-control" name="tagsId">
+                            @foreach (Tag tag in ViewBag.Tags)
+                            {
+                                <option value="@tag.Id">@tag.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Main Category</label>
+                        <select class="form-control" name="mainCatId">
+                            @foreach (Category cat in ViewBag.MainCategories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Main Category</label>
+                        <select class="form-control" name="childCatId">
+                            @foreach (Category cat in ViewBag.ChildCategories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-action="index" class="btn btn-secondary text-white">Go Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+
+        $(document).on("change", "#Test", function () {
+
+        });
+    </script>
+}
