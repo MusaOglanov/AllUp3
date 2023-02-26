@@ -1,0 +1,195 @@
+﻿@model Product
+
+<div class="col-12">
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Product Update</h5>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap">
+                @if (Model.ProductImages.Count != 1)
+                {
+                    @foreach (ProductImage productImage in Model.ProductImages)
+                    {
+                        <div class="d-flex flex-column m-2" id="myPhotos">
+                            <img style="width:100px;height:100px;" src="~/assets/images/product/@productImage.Image" />
+                            <a class="btn btn-danger del-images">Delete</a>
+                            <input type="hidden" value="@productImage.Id" />
+                        </div>
+
+                    }
+                   
+                }
+                else
+                {
+                    @foreach (ProductImage productImage in Model.ProductImages)
+                    {
+                        <div class="d-flex flex-column m-2" id="myPhotos">
+                            <img style="width:100px;height:100px;" src="~/assets/images/product/@productImage.Image" />
+                         
+                        </div>
+
+                    }
+                }
+               
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <div class="mb-3 ">
+                        <label class="form-label" asp-for="Photos"></label>
+                        <input asp-for="Photos" class="form-control">
+                        <span class="text-danger" asp-validation-for="Photos"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control">
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control">
+                        <span class="text-danger" asp-validation-for="Price"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.Tax"></label>
+                        <input asp-for="ProductDetail.Tax" class="form-control">
+                        <span class="text-danger" asp-validation-for="ProductDetail.Tax"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.ProductCode"></label>
+                        <input asp-for="ProductDetail.ProductCode" class="form-control">
+                        <span class="text-danger" asp-validation-for="ProductDetail.ProductCode"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.HasStock"></label>
+                        <input asp-for="ProductDetail.HasStock">
+                        <span class="text-danger" asp-validation-for="ProductDetail.HasStock"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="ProductDetail.Description"></label>
+                        <textarea asp-for="ProductDetail.Description" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="ProductDetail.Description"></span>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Brand</label>
+                        <select class="form-control" name="brandId">
+                            @foreach (Brand brand in ViewBag.Brands)
+                            {
+                                if (Model.BrandId == brand.Id)
+                                {
+                                    <option selected value="@brand.Id">@brand.Name</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@brand.Id">@brand.Name</option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Tags</label>
+                        <select multiple class="form-control" name="tagsId[]">
+                            @foreach (Tag tag in ViewBag.Tags)
+                            {
+                                if (Model.ProductTags.Any(x => x.Id == tag.Id))
+                                {
+                                    <option selected value="@tag.Id">@tag.Name</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@tag.Id">@tag.Name</option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Main Category</label>
+                        <select id="mainCats" class="form-control" name="mainCatId">
+                            @foreach (Category cat in ViewBag.MainCategories)
+                            {
+                                if (Model.ProductCategories.Any(x => x.Id == cat.Id))
+                                {
+                                    <option selected value="@cat.Id">@cat.Name</option>
+
+                                }
+                                else
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-label">
+                        <label for="exampleFormControlSelect1">Select Main Category</label>
+                        <select id="childCatId" class="form-control" name="childCatId">
+                            @foreach (Category cat in ViewBag.ChildCategories)
+                            {
+                                <option value="@cat.Id">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-action="index" class="btn btn-secondary text-white">Go Back</a>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#ProductDetail_Description'))
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+
+    <script>
+
+        $(document).on("change", "#mainCats", function () {
+            $.ajax({
+                url: "/Admin/Products/LoadChild/",
+                type: "post",
+                data: {
+                    "mainId": $("#mainCats").val()
+                },
+                success: function (res) {
+                    $("#childCatId").empty();
+                    $("#childCatId").append(res);
+                }
+            });
+        });
+        $(document).on("click", ".del-images", function () {
+        
+       let clickedBtn=$(this);
+            $.ajax({
+                url: "/Admin/Products/DeleteImages/",
+                type: "get",
+                data: {
+                    "proImageId": clickedBtn.next().val()
+                },
+                success: function (res) {
+                    clickedBtn.parent().remove()
+                    if ($(".del-images").length==1){
+                        $(".del-images").remove()
+                    }
+
+                }
+            });
+        });
+
+    </script>
+}

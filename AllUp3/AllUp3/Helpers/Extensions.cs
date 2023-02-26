@@ -26,5 +26,13 @@ namespace AllUp3.Helpers
 
             return filename;
         }
+        public static void DeleteFile(string folder,string filename)
+        {
+            string path = Path.Combine(folder,filename);
+            if(System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+        }
     }
 }
